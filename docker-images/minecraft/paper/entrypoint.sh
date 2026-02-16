@@ -2,7 +2,7 @@
 set -e
 
 # Internal variables
-export INTERNAL_IP=$(ip route get 1 | awk '{print $NF;exit}')
+export INTERNAL_IP=$(hostname -I | awk '{print $1}')
 
 # Move to the container directory
 cd /home/container || exit 1
