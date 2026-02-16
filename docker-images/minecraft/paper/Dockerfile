@@ -2,7 +2,7 @@ ARG JAVA_VERSION=17
 FROM eclipse-temurin:${JAVA_VERSION}-jdk
 
 RUN apt-get update && apt-get install -y curl iproute2 && rm -rf /var/lib/apt/lists/*
-RUN useradd -m -d /home/container -s /bin/bash container
+RUN groupadd -g 1000 container && useradd -u 1000 -g 1000 -m -d /home/container -s /bin/bash container
 
 WORKDIR /home/container
 
