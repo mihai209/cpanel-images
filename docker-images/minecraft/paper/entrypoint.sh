@@ -7,6 +7,12 @@ export INTERNAL_IP=$(hostname -I | awk '{print $1}')
 # Move to the container directory
 cd /home/container || exit 1
 
+# Diagnostics
+echo "--- Startup Diagnostics ---"
+id
+ls -la /home/container
+echo "---------------------------"
+
 # Download Paper if it doesn't exist
 if [ ! -f paper.jar ]; then
     echo "Downloading Minecraft Paper (latest build)..."
@@ -20,7 +26,7 @@ if [ ! -f eula.txt ]; then
 fi
 
 # Print info
-echo "Server starting on $INTERNAL_IP"
+echo "Server starting on ${SERVER_IP:-0.0.0.0}:${SERVER_PORT:-25565}"
 java -version
 
 # Execute the startup command provided by the panel
