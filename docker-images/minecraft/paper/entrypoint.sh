@@ -14,9 +14,9 @@ if [ ! -f paper.jar ]; then
     curl -sSL "https://api.papermc.io/v2/projects/paper/versions/1.20.4/builds/381/downloads/paper-1.20.4-381.jar" -o paper.jar
 fi
 
-# Ensure EULA is accepted
+# Ensure EULA is created but NOT auto-accepted
 if [ ! -f eula.txt ]; then
-    echo "eula=true" > eula.txt
+    echo "eula=false" > eula.txt
 fi
 
 # Print info
