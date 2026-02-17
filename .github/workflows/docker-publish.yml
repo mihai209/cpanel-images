@@ -1,15 +1,14 @@
-name: Build and Publish Docker Image
+name: Build and Publish Docker Images
 
 on:
   push:
     branches: [ "main" ]
     paths:
-      - 'docker-images/minecraft/paper/**'
+      - 'docker-images/minecraft/**'
   workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/minecraft-paper
 
 jobs:
   build:
@@ -20,6 +19,7 @@ jobs:
 
     strategy:
       matrix:
+        server-type: [paper, bungee]
         java-version: [8, 11, 17, 21]
 
     steps:
@@ -33,10 +33,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set image name
+        run: echo "IMAGE_NAME=${{ github.repository_owner }}/minecraft-${{ matrix.server-type }}" >> $GITHUB_ENV
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./docker-images/minecraft/paper
+          context: ./docker-images/minecraft/${{ matrix.server-type }}
           push: true
           build-args: |
             JAVA_VERSION=${{ matrix.java-version }}
