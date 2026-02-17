@@ -1,0 +1,22 @@
+{
+    "name": "Minecraft Paper",
+    "description": "High performance Minecraft server software aiming to fix gameplay and mechanics inconsistencies.",
+    "docker_image": "ghcr.io/mihai209/minecraft-paper:latest",
+    "docker_images": {
+        "Java 8": "ghcr.io/mihai209/minecraft-paper:java8",
+        "Java 11": "ghcr.io/mihai209/minecraft-paper:java11",
+        "Java 17 (Recommended)": "ghcr.io/mihai209/minecraft-paper:java17",
+        "Java 21": "ghcr.io/mihai209/minecraft-paper:java21"
+    },
+    "startup": "java -Xms128M -Xmx{SERVER_MEMORY}M -Dterminal.jline=false -Dterminal.ansi=true -jar paper.jar",
+    "environment": {
+        "SERVER_MEMORY": "1024",
+        "MINECRAFT_VERSION": "latest"
+    },
+    "ports": [
+        {
+            "container": 25565,
+            "protocol": "tcp"
+        }
+    ]
+}
